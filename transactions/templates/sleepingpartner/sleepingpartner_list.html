@@ -1,0 +1,132 @@
+{% extends "base.html" %}
+
+{% load widget_tweaks %}
+
+
+{% block title %} Sales List {% endblock title %}
+
+
+{% block content %}
+    
+    <div class="row" style="color: #575757; font-style: bold; font-size: 3rem;">
+        <div class="col-md-8">SleepingPartner List</div>
+        <div class="col-md-4">               
+            <div style="float:right;"> <a class="btn btn-success" href="{% url 'new-sleepingpartner' %}">New Sleeping Partner</a> </div>
+        </div>
+    </div>
+    
+    <br>
+
+    <table class="table table-css table-bordered table-hover"> 
+            
+
+        <thead class="thead-dark align-middle">
+            <tr><!-- Log on to freeprojectscodes.com for more projects -->
+                <th width="10%">Name</th>
+                <th width="15%"> Phone Number</th>
+                <th width="15%">Addres</th>
+                <th width="10%">   Investment</th>
+                <th width="10%">
+                  PartnerPorfit</th>
+                <th width="15%">
+                  CompanyProfit</th>
+   
+                <th>Paid</th>
+       
+               <th> date</th> 
+         
+           
+           
+            </tr>
+            
+        </thead>
+
+       
+
+        <tbody>
+            {% for sleeping in queryset %}
+            <tr><!-- Log on to freeprojectscodes.com for more projects -->
+             <td style='color:black'>
+
+                {{sleeping.name}}
+             </td>
+             <td style='color:black'>
+
+                {{sleeping.mobile_number}}
+             </td>
+             <td style='color:black'>
+
+                {{sleeping.address}}
+             </td>
+             <td style='color:black'>
+
+                {{sleeping.investment}}
+             </td>
+             <td style='color:black'>
+
+                {{sleeping.PartnerPorfit}}
+             </td>
+    
+             <td style='color:black'>
+
+                {{sleeping.CompanyProfit}}
+             </td>
+             <td style='color:black'>
+{% if sleeping.paid %}
+<button type="button" class="btn btn-success">Paid</button>
+
+{% else %}
+<button type="button" class="btn btn-warning">UnPaid</button>
+{% endif %}
+                {% comment %} {{sleeping.paid}} {% endcomment %}
+             </td>
+        
+             <td style='color:black'>
+
+                {{sleeping.date}}
+             </td>
+             {% comment %} <td style='color:black'>
+
+                {{sale.time}}
+             </td> {% endcomment %}
+            </tr>
+            {% endfor %}
+        </tbody>
+
+    </table>
+
+    <div class="align-middle"><!-- Log on to freeprojectscodes.com for more projects -->
+        {% if is_paginated %}
+
+            {% if page_obj.has_previous %}
+                <a class="btn btn-outline-info mb-4" href="?page=1">First</a>
+                <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.previous_page_number }}">Previous</a>
+            {% endif %}
+
+            {% for num in page_obj.paginator.page_range %}
+                {% if page_obj.number == num %}
+                    <a class="btn btn-info mb-4" href="?page={{ num }}">{{ num }}</a>
+                {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                    <a class="btn btn-outline-info mb-4" href="?page={{ num }}">{{ num }}</a>
+                {% endif %}
+            {% endfor %}
+
+            {% if page_obj.has_next %}
+                <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.next_page_number }}">Next</a>
+                <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.paginator.num_pages }}">Last</a>
+            {% endif %}
+
+        {% endif %}
+    </div>
+
+
+
+        <tbody></tbody>  <!-- Log on to freeprojectscodes.com for more projects --> 
+    </table>
+
+    <br><br><br><br><br><br><br><br>
+    <div style="color: #575757; font-style: bold; font-size: 1.5rem; text-align: center;">The records are empty. Please try adding some.</div>
+
+
+
+{% endblock content %}
